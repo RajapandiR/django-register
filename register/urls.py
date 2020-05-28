@@ -18,11 +18,13 @@ from django.urls import path, include
 from registerapp import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', views.index, name='index'),
+    path('', views.index, name='index'),
     path('register/', views.register, name='register'),
     path('login/', views.login1, name='login1'),
+    path('view/', views.viewpage, name='viewpage'),
     path( 'api/', include('registerapp.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

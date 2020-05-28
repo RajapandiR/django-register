@@ -4,6 +4,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 from django.contrib.auth.hashers import make_password
 from django.conf import settings
+
 # Create your models here.
 
 class RegisterManager(BaseUserManager):
@@ -31,8 +32,10 @@ class RegisterManager(BaseUserManager):
 class RegisterPage(AbstractBaseUser, PermissionsMixin):
 	email = models.EmailField(max_length=100, unique= True)
 	name = models.CharField(max_length=100)
+	password = models.CharField(max_length=300)
 	is_active = models.BooleanField(default = True)
 	is_staff = models.BooleanField(default = False)
+
 
 	objects = RegisterManager()
 	USERNAME_FIELD = 'email'

@@ -1,28 +1,24 @@
 from django.shortcuts import render, redirect
 from django.contrib import  messages
-# from django.contrib.auth import authenticate, login, logout?
 from django.contrib.auth import authenticate , login, logout
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.decorators import login_required
+
 from registerapp import models
 from registerapp import forms
 # Create your views here.
 
 def index(req):
-    form = forms.RegisterPageForm()
-    if req.method == 'POST':
-        form = forms.RegisterPageForm(req.POST)
-        if form.is_vlaid():
-            if password == confirmPassword:
-                User.objects.create_user(username=username, password=password, email=email)
-                form.save()
-                messages.add_message(request,messages.SUCCESS ,"Your success")
-            else:
-                messages.add_message(request, messages.WARNING , "Password doesn't match.")
-            form.save()
-            redirect('login')
+    return render(req, 'index.html')
+
+@login_required
+def viewpage(req):
+    obj = models.RegisterPage.objects.all()
     context = {
-        'form': form
+        'data': obj
     }
-    return render(req, 'index.html', context)
+    return render(req, 'viewpage.html', context)
     
 
 def register(req):
@@ -53,4 +49,5 @@ def login1(request):
         else :
             return redirect('login1')
 
-    return render(request, 'login.html')   
+    return render(request, 'login.html')
+

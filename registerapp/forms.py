@@ -1,4 +1,5 @@
 from django import forms
+from passlib.hash import pbkdf2_sha256
 
 from registerapp import models
 
@@ -32,6 +33,9 @@ class RegisterPageForm(forms.ModelForm):
         if qs.exists():
             raise forms.ValidationError("email is taken")
         return email
+    
+    def verify_paaword(self, raw_password):
+        return pbkdf2_sha256.verify(raw_password, self.password)
 
     def clean_confirmPassword(self):
         # Check that the two password entries match
