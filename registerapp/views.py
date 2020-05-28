@@ -29,7 +29,7 @@ def register(req):
         if form.is_valid():
             form.save()
             return redirect('login1')
-            messages.add_message(request,messages.SUCCESS ,"Your success")
+            messages.add_message(request,messages.SUCCESS ,"Register successfull")
     context = {
         'form': form
     }
@@ -45,7 +45,7 @@ def login1(request):
         if user is not None:
             print(user)
             login(request,user)
-            return redirect('index')
+            return redirect('view')
         else :
             return redirect('login1')
 
