@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import  messages
-from django.contrib.auth import authenticate, login, logout
-
+# from django.contrib.auth import authenticate, login, logout?
+from django.contrib.auth import authenticate , login, logout
 from registerapp import models
 from registerapp import forms
 # Create your views here.
@@ -32,24 +32,25 @@ def register(req):
         print('step1')
         if form.is_valid():
             form.save()
-            return redirect('login')
+            return redirect('login1')
             messages.add_message(request,messages.SUCCESS ,"Your success")
     context = {
         'form': form
     }
     return render(req, 'register.html', context)
-   
-def login(req):
-    if req.method == 'POST':
-        name = req.POST.get('name')
-        password = req.POST.get('password')
-        user = authenticate(req, name =  name, password = password  )
-        # user = authenticate(req, name=name, password=password)
-        print(user)
-        if user is not None :
+
+def login1(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        print(email)
+        user = authenticate(request, email =  email, password = password)
+        print("User", user)
+        if user is not None:
             print(user)
-            login(req, user)
+            login(request,user)
             return redirect('index')
-        else:
-            return redirect('login')
-    return render(req, 'login.html')
+        else :
+            return redirect('login1')
+
+    return render(request, 'login.html')   

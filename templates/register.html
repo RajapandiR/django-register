@@ -29,6 +29,11 @@
                 <div class="alert alert-danger" role="alert">Email already Exist</div> 
                 {% endif %}
             </div>
+            <div class="messages">
+                {% if form.confirmPassword.errors %}
+                <div class="alert alert-danger" role="alert">Passwords don't match</div> 
+                {% endif %}
+            </div>
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-user"></i></span>
                 <!-- <input type="text" class="form-control" name="username" placeholder="Username" required="required"> -->
@@ -49,21 +54,21 @@
                 {{form.password}}
 			</div>
         </div>
-		<!-- <div class="form-group">
+		 <div class="form-group">
 			<div class="input-group">
 				<span class="input-group-addon">
 					<i class="fa fa-lock"></i>
 					<i class="fa fa-check"></i>
 				</span>
-                {{form.password1}}
+                {{form.confirmPassword}}
 			</div>
-        </div>         -->
+        </div>       
 		<div class="form-group">
             <button type="submit" class="btn btn-primary btn-block btn-lg">Sign Up</button>
         </div>
 		
     </form>
-	<div class="text-center">Already have an account? <a href="#">Login here</a>.</div>
+	<div class="text-center">Already have an account? <a href="/login">Login here</a>.</div>
 </div>
 </body>
 </html>
