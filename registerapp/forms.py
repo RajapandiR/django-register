@@ -5,8 +5,8 @@ from django.contrib.auth import authenticate
 from registerapp import models
 
 class RegisterPageForm(UserCreationForm):
-    password1 = forms.CharField(min_length=8,help_text="Mininum 6 char", widget=forms.PasswordInput(attrs={'class': 'form-control','placeholder': 'Password' })) 
-    password2 = forms.CharField(min_length=8,widget=forms.PasswordInput(attrs={'class': 'form-control','placeholder': 'Confirm Password' }))
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control','placeholder': 'Password' })) 
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control','placeholder': 'Confirm Password' }))
     class Meta:
         model = models.RegisterPage
         fields = ('name', 'email', 'password1', 'password2')
@@ -33,7 +33,6 @@ class RegisterPageForm(UserCreationForm):
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Passwords don't match")
         return password2
-
 class AuthenticationForm(forms.ModelForm):
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
     class Meta:
