@@ -24,7 +24,7 @@ class RegisterPageForm(UserCreationForm):
         email = self.cleaned_data.get('email')
         qs = models.RegisterPage.objects.filter(email=email)
         if qs.exists():
-            raise forms.ValidationError("email is taken")
+            raise forms.ValidationError("Email alread exists")
         return email
     def clean_password2(self):
         # Check that the two password entries match
