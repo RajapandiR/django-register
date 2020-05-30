@@ -12,6 +12,14 @@
                  <div class="alert alert-{{ msg.level_tag}}" role="alert">{{msg.message}}</div>
                 {% endfor %}
             </div>
+            <!-- {% for errors in form.errors %}
+            <p style="color:red">{{errors}}</p>
+        {% endfor %} -->
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+                {{form.non_field_errors}}
+            </div>
+        {% endif %}
             <h2 class="text-center">Log in</h2>       
             {% csrf_token %}
             <div class="form-group">

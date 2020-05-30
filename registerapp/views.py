@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import  messages
-from django.contrib.auth import authenticate , login, logout
-from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import login,authenticate, logout
 from django.contrib.auth.decorators import login_required
 
 from registerapp import models
@@ -28,26 +26,32 @@ def register(req):
         print('step1')
         if form.is_valid():
             form.save()
-            return redirect('login1')
-            messages.add_message(request,messages.SUCCESS ,"Register successfull")
+            messages.add_message(req,messages.SUCCESS ,"Register successfull")
+            return redirect('register')
     context = {
         'form': form
     }
     return render(req, 'register.html', context)
 
-def login1(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        print(email)
-        user = authenticate(request, email =  email, password = password)
-        print("User", user)
-        if user is not None:
-            print(user)
-            login(request,user)
-            return redirect('view')
-        else :
-            return redirect('login1')
+def logout_view(request):
+    logout(request)
+    return redirect('login_view')
 
-    return render(request, 'login.html')
-
+def login_view(request):
+    form = forms.AuthenticationForm()
+    user = request.user
+    if user.is_authenticated:
+        return redirect('viewpage')
+    if request.POST:
+        form = forms.AuthenticationForm(request.POST) 
+        if form.is_valid():
+            email = request.POST['email']
+            password= request.POST['password']
+            user = authenticate(email =  email, password = password)
+            if user:
+                login(request, user)
+                return redirect('viewpage')
+    context = {
+        'form': form
+    }
+    return render(request, 'login.html', context)
