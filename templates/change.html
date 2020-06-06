@@ -1,13 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-	<form action="" method="post">
-	{% csrf_token %}
-    {{form.as_p}}
-	<input type="submit" value="Reset">
-	</form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}
+<title>Change Password</title>
+{% endblock %}
+
+{% block body %}
+    <div class="login-form">
+        <form action="" method="post">
+            <!-- <div class="messages">
+                {% for msg in messages %}
+                 <div class="alert alert-{{ msg.level_tag}}" role="alert">{{msg.message}}</div>
+                {% endfor %}
+            </div> -->
+            <!-- {% for errors in form.errors %}
+            <p style="color:red">{{errors}}</p>
+        {% endfor %} -->
+           {% for field in form %}  
+                {% for error in field.errors %}
+                <div class="alert alert-danger" role="alert">{{error}}</div>
+                {% endfor %}
+            {% endfor %}
+            <h2 class="text-center">Change Password</h2>       
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Old Password" name = "old_password" required="required">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" name = "new_password1" required="required">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" name = "new_password2" required="required">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-block">Password Changed</button>
+            </div>        
+        </form>
+    </div>
+{% endblock %}
