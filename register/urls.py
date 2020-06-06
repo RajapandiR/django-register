@@ -32,4 +32,8 @@ urlpatterns = [
     path( 'api/', include('registerapp.urls')),
     path('change-password/', auth_views.PasswordChangeView.as_view(template_name='change.html',
             success_url = '/view')),
+    path('reset_password/', auth_views.PasswordResetView.as_view(template_name='reset_password.html'), name="reset_password"), 
+    path('resetpassword_sent/', auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),
+    path('reset<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='set_password.html'), name="password_reset_confirm"),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
