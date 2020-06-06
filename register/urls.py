@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from registerapp import views
 from django.conf import settings
+from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 
 urlpatterns = [
@@ -29,4 +30,6 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('view/', views.viewpage, name='viewpage'),
     path( 'api/', include('registerapp.urls')),
+    path('change-password/', auth_views.PasswordChangeView.as_view(template_name='change.html',
+            success_url = '/')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -55,3 +55,17 @@ def login_view(request):
         'form': form
     }
     return render(request, 'login.html', context)
+
+
+# def change(request):
+#     form = forms.ChangePasswordForm()
+#     if request.method == 'POST':
+#         form = forms.ChangePasswordForm(data=request.POST)
+#         if form.is_valid():
+#             form.save()
+#             messages.add_message(request,messages.SUCCESS ,"Your success")
+#             return redirect('chanage')
+#     context = {
+#         "form": form
+#     }
+#     return render(request, 'change.html', context)

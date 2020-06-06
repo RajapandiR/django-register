@@ -44,4 +44,10 @@ class AuthenticationForm(forms.ModelForm):
         if not authenticate(email=email, password=password):
             raise forms.ValidationError("Invalid Login")
 
-    
+class ChangePasswordForm(forms.Form):
+    old_password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    new_password1 = forms.CharField(label='Password1', widget=forms.PasswordInput)
+    new_password2 = forms.CharField(label='Password2', widget=forms.PasswordInput)
+    class Meta:
+        model = models.RegisterPage
+        fields = ('old_password', 'new_password1', 'new_password2')
